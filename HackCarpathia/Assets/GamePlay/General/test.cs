@@ -12,17 +12,17 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             CameraControler.Instance.setCamera("Kamera1");
         }
-        if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             CameraControler.Instance.setCamera("Kamera2");
         }
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    CameraControler.Instance.setCamera("kameraTrzy");
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            CameraControler.Instance.setCamera("playerCamera");
+        }
     }
 }
