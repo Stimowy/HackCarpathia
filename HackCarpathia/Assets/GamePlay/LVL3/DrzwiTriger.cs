@@ -7,8 +7,12 @@ public class DrzwiTriger : MonoBehaviour
     CharacterController cc;
     private void Awake()
     {
-        popupMessage.triggerMessage("IdŸ do kuchni coœ zjeœæ.");
         cc = gracz.GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        popupMessage.triggerMessage("IdŸ do kuchni coœ zjeœæ.");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +20,7 @@ public class DrzwiTriger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             animatorDrzwi.SetBool("czyOtwarte", true);
+            //d
             popupMessage.triggerMessage("Naciœnij E, aby przejœæ do kuchni.");
         }
         
