@@ -8,13 +8,13 @@ public class uruchomKomputer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("dziala");
             WykonajLogikeKomputera();
         }
     }
 
     void WykonajLogikeKomputera()
     {
+        popupMessage.triggerMessage("Uruchomiono fotoshop aby zmodyfikować zdjęcie");
         wlaczone = !wlaczone;
         pulpit.SetActive(wlaczone);
     }

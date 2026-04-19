@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Threading;
+using System.Collections;
 
 public class SocialMediaManager : MonoBehaviour
 {
@@ -70,9 +73,14 @@ public class SocialMediaManager : MonoBehaviour
 
     public void PublikujPost()
     {
-        Debug.Log($"Post opublikowany! To¿samoœæ: {tozsamosc}, Stres: {stres}");
         int wynik_lvl2 = Random.Range( 0, 200 );
         popupMessage.triggerMessage("Wynik: " + wynik_lvl2);
-        // Tutaj mo¿esz dodaæ logikê przejœcia do kolejnego poziomu lub kary/nagrody
+
+        Invoke(nameof(odliczanie), 3f);
+    }
+
+    private void odliczanie()
+    {
+        SceneManager.LoadScene(4);
     }
 }

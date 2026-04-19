@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class igControler : MonoBehaviour
 {
@@ -215,5 +216,12 @@ public class igControler : MonoBehaviour
         instagram.SetActive(false);
         pulpit.SetActive(true);
         popupMessage.triggerMessage("Wylogowano. Twój wynik: " + zdobytePunkty);
+
+        Invoke(nameof(odliczanie), 3f);
+    }
+
+    private void odliczanie()
+    {
+        SceneManager.LoadScene(6);
     }
 }

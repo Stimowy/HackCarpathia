@@ -2,6 +2,7 @@ using System.Collections;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class miniGameManager : MonoBehaviour
 {
@@ -81,5 +82,8 @@ public class miniGameManager : MonoBehaviour
             min++;
             yield return new WaitForSeconds(0.1f);
         }
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(3);
     }
 }
