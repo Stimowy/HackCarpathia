@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,20 +9,21 @@ public class MoveTriger : MonoBehaviour
     [SerializeField] private GameObject szkola;
 
     [Header("pozycja gracza")]
-    [SerializeField] private Vector3 pozGracza;
+    [SerializeField] private Vector3 pozGracz;
     [SerializeField] private Vector3 pozCam;
     [SerializeField] private Vector3 rotCam;
 
     [Header("przypisania do teleportacji")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject cam;
-    private Camera camera;
 
     private bool isPlayerInTrigger = false;
 
-    private void Awake()
+    private void Start()
     {
-        camera = cam.GetComponent<Camera>();
+        dom.SetActive(true);
+        szkola.SetActive(false);
+        popupMessage.timeMessage("wyjdź z domu, aby pójść do szkoły na ważny sprawdzian", 4f, 2f);
     }
 
     private void Update()
@@ -30,9 +32,12 @@ public class MoveTriger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                player.transform.position = pozGracza;
-                camera.transform.position = pozCam;
-                camera.transform.rotation = Quaternion.Euler(rotCam);
+                cam.transform.position = pozCam;
+                cam.transform.rotation = Quaternion.Euler(rotCam);
+
+                player.transform.position = pozGracz;
+                Physics.SyncTransforms();
+
                 dom.SetActive(false);
                 szkola.SetActive(true);
             }
@@ -42,7 +47,7 @@ public class MoveTriger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         popupMessage.triggerMessage("naciśnij E, aby przejść do szkoły");
-        isPlayerInTrigger=true;
+        isPlayerInTrigger = true;
     }
 
     private void OnTriggerExit(Collider other)
