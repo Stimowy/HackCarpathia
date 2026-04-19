@@ -1,46 +1,78 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SocialMediaGame : MonoBehaviour
+public class SocialMediaManager : MonoBehaviour
 {
-    [Header("UI Panels")]
-    public GameObject editingPanel;
-
-    [Header("Sliders")]
+    [Header("UI Controls")]
     public Slider sliderAutentycznosc;
     public Slider sliderTrendy;
+    public Image pasekTozsamosci; // Niebieski
+    public Image pasekStresu;      // Czerwony
 
-    [Header("Status Bars (Images with Fill Amount)")]
-    public Image pasekTozsamosci;
-    public Image pasekStresu;
+    [Header("Wartoœci bazowe")]
+    [Range(0, 100)] public float tozsamosc = 100f;
+    [Range(0, 100)] public float stres = 0f;
 
-    private float tozsamosc = 1.0f;
-    private float stres = 0.0f;
-
-    public void PublikujPost()
+    void Update()
     {
-        float autentycznosc = sliderAutentycznosc.value;
-        float trendy = sliderTrendy.value;
-
-        // LOGIKA:
-        // Wysokie trendy = strata to¿samoœci
-        tozsamosc -= trendy * 0.3f;
-
-        // Niska autentycznoœæ = wiêcej stresu (bo post jest udawany)
-        // LUB: Wysoka autentycznoœæ przy niskich trendach = ma³o lajków = stres
-        if (autentycznosc > 0.7f && trendy < 0.3f)
+        // Jeœli któregokolwiek elementu brakuje, przerwij wykonywanie, zamiast sypaæ b³êdami
+        if (sliderAutentycznosc == null || sliderTrendy == null ||
+            pasekTozsamosci == null || pasekStresu == null)
         {
-            stres += 0.2f; // Hejt lub brak zainteresowania boli
+            return;
         }
 
+        ObliczStatystyki();
         AktualizujUI();
-        editingPanel.SetActive(false); // Zamknij panel po publikacji
-        Debug.Log("Opublikowano! To¿samoœæ: " + tozsamosc + " Stres: " + stres);
+    }
+
+    void ObliczStatystyki()
+    {
+        // 1. Zbyt wysokie trendy niszcz¹ to¿samoœæ (poddawanie siê presji)
+        // Jeœli Trendy > Autentycznoœæ, to¿samoœæ spada
+        if (sliderTrendy.value > sliderAutentycznosc.value)
+        {
+            tozsamosc -= (sliderTrendy.value - sliderAutentycznosc.value) * Time.deltaTime * 0.5f;
+        }
+        else
+        {
+            // Powolna regeneracja to¿samoœci, gdy jesteœmy autentyczni
+            tozsamosc += 0.1f * Time.deltaTime;
+        }
+
+        // 2. Zbyt wysoka autentycznoœæ (brak filtrów, surowoœæ) zwiêksza stres
+        // bo post dostanie mniej lajków/bêdzie oceniany negatywnie
+        if (sliderAutentycznosc.value > 0.7f) // Progu 70% autentycznoœci
+        {
+            stres += (sliderAutentycznosc.value * 0.2f) * Time.deltaTime;
+        }
+        else
+        {
+            stres -= 0.1f * Time.deltaTime;
+        }
+
+        // Clampowanie wartoœci
+        tozsamosc = Mathf.Clamp(tozsamosc, 0, 100);
+        stres = Mathf.Clamp(stres, 0, 100);
+        int intTozsamosc = (int)tozsamosc;
+        int intStres = (int)stres;
     }
 
     void AktualizujUI()
     {
-        pasekTozsamosci.fillAmount = Mathf.Clamp01(tozsamosc);
-        pasekStresu.fillAmount = Mathf.Clamp01(stres);
+        // Zak³adamy, ¿e paski to Image z typem "Filled"
+        pasekTozsamosci.fillAmount = tozsamosc / 100f;
+        pasekStresu.fillAmount = stres / 100f;
+
+        // Opcjonalnie: Zmiana koloru paska stresu na bardziej intensywny
+        pasekStresu.color = Color.Lerp(Color.yellow, Color.red, stres / 100f);
+    }
+
+    public void PublikujPost()
+    {
+        Debug.Log($"Post opublikowany! To¿samoœæ: {tozsamosc}, Stres: {stres}");
+        int wynik_lvl2 = Random.Range( 0, 200 );
+        popupMessage.triggerMessage("Wynik: " + wynik_lvl2);
+        // Tutaj mo¿esz dodaæ logikê przejœcia do kolejnego poziomu lub kary/nagrody
     }
 }

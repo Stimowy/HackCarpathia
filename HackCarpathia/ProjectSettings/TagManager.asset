@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - gameCamera
+  - pulpit
   layers:
   - Default
   - TransparentFX
