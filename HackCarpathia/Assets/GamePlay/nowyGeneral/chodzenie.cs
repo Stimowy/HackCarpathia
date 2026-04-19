@@ -29,6 +29,9 @@ public class chodzenie : MonoBehaviour
 
     void Update()
     {
+        if (!controller.enabled) { 
+            return;
+        }
         // 1. Pobieranie Inputu (Strza³ki / WSAD)
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
