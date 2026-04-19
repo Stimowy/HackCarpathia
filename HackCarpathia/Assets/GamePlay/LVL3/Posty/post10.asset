@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea28ab9c67452904ab8e6996ce794a6e, type: 3}
   m_Name: post10
   m_EditorClassIdentifier: Assembly-CSharp::PostData
-  zdjecie: {fileID: 21300000, guid: 4f82292b955ceb4479cca4e2a503d766, type: 3}
+  zdjecie: {fileID: 21300000, guid: d5a112198beb5c64ca7b41947932a717, type: 3}
   przynaleznosc: 0
-  punktyZaLike: 10
+  punktyZaLike: 30
   punktyZaShare: 50
   toJestFake: 0
   trudnoscRozpoznania: 0

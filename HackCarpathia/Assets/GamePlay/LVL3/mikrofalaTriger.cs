@@ -29,7 +29,7 @@ public class mikrofalaTriger : MonoBehaviour
         {
             wObsz = false;
             this.gameObject.SetActive(false);
-            popupMessage.triggerMessage("Zjedz jedzenie przy stoje.");
+            popupMessage.triggerMessage("Zjedz jedzenie przy stole.");
             stol.gameObject.SetActive(true);
         }
     }

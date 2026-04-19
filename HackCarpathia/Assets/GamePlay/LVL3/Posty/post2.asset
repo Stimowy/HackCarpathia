@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PostData
   zdjecie: {fileID: 21300000, guid: 7032a3065ed91e249968c94b7a06ebf4, type: 3}
   przynaleznosc: 0
-  punktyZaLike: 10
-  punktyZaShare: 50
+  punktyZaLike: 20
+  punktyZaShare: 40
   toJestFake: 0
   trudnoscRozpoznania: 0
