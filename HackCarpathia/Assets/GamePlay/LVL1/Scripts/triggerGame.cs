@@ -11,7 +11,7 @@ public class triggerGame : MonoBehaviour
     {
         if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("miniGameLVL1");
+            SceneManager.LoadScene(2);
         }
     }
 
